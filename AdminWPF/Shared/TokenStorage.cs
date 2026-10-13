@@ -7,7 +7,7 @@ namespace AdminWPF
     public static class TokenStorage
     {
         private static readonly string Path =
-            System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "AdminMV", "token.bin");
+            System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "AdminWPF", "token.bin");
 
         public static void Save(string token)
         {
