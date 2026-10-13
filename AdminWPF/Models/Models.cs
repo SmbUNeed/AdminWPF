@@ -7,22 +7,22 @@ using System.Threading.Tasks;
 namespace AdminWPF.Models;
 
 public record ClientDto(int Id, string FullName, string PhoneNumber, string? Email, int? UserId, string? AdminTag, string? AdminNote, bool InBlackList);
-public record CreateClientDto { public string FullName = ""; public string PhoneNumber = ""; public string? Email; public string? AdminTag; public string? AdminNote; public bool InBlackList; }
+public class CreateClientDto { public string FullName { get; set; } = ""; public string PhoneNumber { get; set; } = ""; public string? Email { get; set; } public string? AdminTag { get; set; } public string? AdminNote { get; set; } public bool InBlackList { get; set; } }
 
 public record AmenityDto(int Id, string Name, string Icon);
-public class CreateAmenityDto { public string Name = ""; public string Icon = ""; }
+public class CreateAmenityDto { public string Name { get; set; } = ""; public string Icon { get; set; } = ""; }
 
 public record RuleDto(int Id, string Icon, string Text);
-public class CreateRuleDto { public string Icon = ""; public string Text = ""; }
+public class CreateRuleDto { public string Icon { get; set; } = ""; public string Text { get; set; } = ""; }
 
 public record NearbyPlaceDto(int Id, string Icon, string Name, string? Distance, int? WikiPlaceId);
-public class CreateNearbyDto { public string Icon = ""; public string Name = ""; public int? WikiPlaceId; }
+public class CreateNearbyDto { public string Icon { get; set; } = ""; public string Name { get; set; } = ""; public int? WikiPlaceId { get; set; } }
 
 public record PriceRuleDto(int Id, int? ApartmentId, string Label, string StartDate, string? EndDate, bool IsRecurringYearly, double? Multiplier, double? FixedMarkup);
-public class CreatePriceRuleDto { public string Label = ""; public string StartDate = ""; public string? EndDate; public bool IsRecurringYearly; public double? Multiplier; public double? FixedMarkup; }
+public class CreatePriceRuleDto { public string Label { get; set; } = ""; public string StartDate { get; set; } = ""; public string? EndDate { get; set; } public bool IsRecurringYearly { get; set; } public double? Multiplier { get; set; } public double? FixedMarkup { get; set; } }
 
 public record WikiPlaceDto(int Id, string Name, string Description, string PhotoPath, string Type, int? NearbyPlaceId);
-public class CreateWikiPlaceDto { public string Name = ""; public string Description = ""; public string? PhotoPath; public string Type = ""; public int? NearbyPlaceId; }
+public class CreateWikiPlaceDto { public string Name { get; set; } = ""; public string Description { get; set; } = ""; public string? PhotoPath { get; set; } public string Type { get; set; } = ""; public int? NearbyPlaceId { get; set; } }
 
 public record SiteSettingsDto(int Id, string HeaderDescription, int MinBookingDaysAhead, int MaxBookingRangeDays, double DefaultHourOverpayment);
 
