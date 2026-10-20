@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AdminWPF.Windows"
         mc:Ignorable="d"
-        Title="Captcha" Height="450" Width="800">
+        Title="Captcha" Height="150" Width="300"
+        WindowStartupLocation="CenterOwner">
     <Grid>
         <StackPanel HorizontalAlignment="Center">
             <TextBlock x:Name="ErrorText"/>
