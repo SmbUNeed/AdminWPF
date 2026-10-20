@@ -1,4 +1,5 @@
 ﻿using AdminWPF.Models;
+using AdminWPF.Services;
 using AdminWPF.Shared;
 using AdminWPF.Views;
 using System;
@@ -7,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -38,6 +38,30 @@ public partial class MainPage : Page
 
         tabs.Items.Add(new TabItem { Header = "Вики", Content = new CrudView<WikiPlaceDto, CreateWikiPlaceDto>("api/wiki-places") });
 
-        Content = tabs;
+        var passwordButton = new Button { Content = "Сменить пароль" };
+        passwordButton.Click += async (_, _) =>
+        {
+            passwordButton.IsEnabled = false;
+            var (success, error) = await ApiService.RequestPasswordChangeAsync();
+            MessageBox.Show(success ? "Письмо отправлено на почту" : error ?? "Ошибка");
+            passwordButton.IsEnabled = true;
+        };
+
+        var logoutButton = new Button { Content = "Выйти" };
+        logoutButton.Click += (_, _) =>
+        {
+            ApiService.ClearToken();
+            NavigationService?.Navigate(new Auth());
+        };
+
+        var topBar = new StackPanel { Orientation = Orientation.Horizontal, HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(8) };
+        topBar.Children.Add(passwordButton);
+        topBar.Children.Add(logoutButton);
+
+        var root = new DockPanel();
+        DockPanel.SetDock(topBar, Dock.Top);
+        root.Children.Add(topBar);
+        root.Children.Add(tabs);
+        Content = root;
     }
 }

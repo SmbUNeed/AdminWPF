@@ -2,11 +2,13 @@
 using AdminWPF.Pages;
 using System.Windows;
 using System.Windows.Controls;
+using AdminWPF.Windows;
 
 namespace AdminWPF.Views;
 
 public partial class Auth : Page
 {
+    int attempts = 0;
     public Auth()
     {
         InitializeComponent();
@@ -14,6 +16,11 @@ public partial class Auth : Page
 
     private async void LoginButton_Click(object sender, RoutedEventArgs e)
     {
+        if (++attempts >= 3) {
+            var win = new Captcha();
+            if (win.ShowDialog() != true) return;
+            else attempts = 0;
+        }
         LoginButton.IsEnabled = false;
         ErrorText.Visibility = Visibility.Collapsed;
 
@@ -27,8 +34,8 @@ public partial class Auth : Page
             return;
         }
 
-        TokenStorage.Save(auth.Token);
         ApiService.SetToken(auth.Token);
+        ApiService.CurrentEmail = EmailBox.Text;
         NavigationService?.Navigate(new MainPage());
     }
 }

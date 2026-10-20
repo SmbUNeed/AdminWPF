@@ -21,13 +21,6 @@ public partial class Shell : Window
 
     async Task StartAsync()
     {
-        var token = TokenStorage.Load();
-        if (token != null)
-        {
-            ApiService.SetToken(token);
-            MainFrame.Navigate(new MainPage());
-            return;
-        }
         MainFrame.Navigate(new Auth());
     }
 }

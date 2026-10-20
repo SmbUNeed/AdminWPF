@@ -6,7 +6,15 @@ namespace AdminWPF.Services;
 
 public static class ApiService
 {
+    public static string? CurrentEmail { get; set; }
     static readonly HttpClient _http = new() { BaseAddress = new Uri("https://sutkivmv.ru") };
+    public static void ClearToken() => _http.DefaultRequestHeaders.Authorization = null;
+    public static async Task<(bool Success, string? Error)> RequestPasswordChangeAsync()
+    {
+        var response = await _http.PostAsJsonAsync("api/auth/change-password-email", CurrentEmail);
+        if (response.IsSuccessStatusCode) return (true, null);
+        return (false, $"Ошибка {(int)response.StatusCode}");
+    }
 
     public static void SetToken(string token) =>
         _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
