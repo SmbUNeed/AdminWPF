@@ -45,6 +45,11 @@ public static class EditForm
         var result = false;
         ok.Click += (_, _) =>
         {
+            if (controls.Where(c => c.Key.Name != "Id").All(c => c.Value is TextBox tb && string.IsNullOrWhiteSpace(tb.Text) || c.Value is CheckBox { IsChecked: not true }))
+            {
+                MessageBox.Show("Заполни хотя бы одно поле", "Внимание");
+                return;
+            }
             try
             {
                 foreach (var (prop, control) in controls)
