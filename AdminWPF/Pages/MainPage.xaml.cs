@@ -26,26 +26,26 @@ public partial class MainPage : Page
         InitializeComponent();
 
         var tabs = new TabControl();
-        tabs.Items.Add(new TabItem { Header = "Квартиры", Content = new ApartmentsListView() });
+        tabs.Items.Add(new TabItem { Header = "Квартиры", Content = new ApartmentsListView() , ToolTip = "Список квартир"});
 
         var bookings = new TabControl();
-        bookings.Items.Add(new TabItem { Header = "Брони", Content = new CrudView<AdminBookingDto, CreateBookingDto>("api/bookings", "Брони") });
-        bookings.Items.Add(new TabItem { Header = "Внешние", Content = new CrudView<ExternalBookingDto, NoCreateDto>("api/admin/external-bookings", "Внешние брони") });
-        tabs.Items.Add(new TabItem { Header = "Бронирования", Content = bookings });
+        bookings.Items.Add(new TabItem { Header = "Брони", Content = new CrudView<AdminBookingDto, CreateBookingDto>("api/bookings", "Брони"), ToolTip = "Внутренние бронирования" });
+        bookings.Items.Add(new TabItem { Header = "Внешние", Content = new CrudView<ExternalBookingDto, NoCreateDto>("api/admin/external-bookings", "Внешние брони"), ToolTip = "Внешние бронирования" });
+        tabs.Items.Add(new TabItem { Header = "Бронирования", Content = bookings , ToolTip="Список бронирований"});
 
-        tabs.Items.Add(new TabItem { Header = "Клиенты", Content = new CrudView<ClientDto, CreateClientDto>("api/clients") });
+        tabs.Items.Add(new TabItem { Header = "Клиенты", Content = new CrudView<ClientDto, CreateClientDto>("api/clients"), ToolTip="Список клиентов" });
 
         var catalogs = new TabControl();
-        catalogs.Items.Add(new TabItem { Header = "Удобства", Content = new CrudView<AmenityDto, CreateAmenityDto>("api/amenities") });
-        catalogs.Items.Add(new TabItem { Header = "Правила", Content = new CrudView<RuleDto, CreateRuleDto>("api/apartments/rules") });
-        catalogs.Items.Add(new TabItem { Header = "Рядом", Content = new CrudView<NearbyPlaceDto, CreateNearbyDto>("api/apartments/nearby-places") });
-        catalogs.Items.Add(new TabItem { Header = "Цены", Content = new CrudView<PriceRuleDto, CreatePriceRuleDto>("api/admin/price-rules") });
+        catalogs.Items.Add(new TabItem { Header = "Удобства", Content = new CrudView<AmenityDto, CreateAmenityDto>("api/amenities"), ToolTip = "Список удобств" });
+        catalogs.Items.Add(new TabItem { Header = "Правила", Content = new CrudView<RuleDto, CreateRuleDto>("api/apartments/rules") , ToolTip = "Список правил" });
+        catalogs.Items.Add(new TabItem { Header = "Рядом", Content = new CrudView<NearbyPlaceDto, CreateNearbyDto>("api/apartments/nearby-places"), ToolTip = "Список мест рядом" });
+        catalogs.Items.Add(new TabItem { Header = "Цены", Content = new CrudView<PriceRuleDto, CreatePriceRuleDto>("api/admin/price-rules"), ToolTip = "Список ценновых правил"  });
 
-        tabs.Items.Add(new TabItem { Header = "Справочники", Content = catalogs });
+        tabs.Items.Add(new TabItem { Header = "Справочники", Content = catalogs, ToolTip = "Справочники" });
 
-        tabs.Items.Add(new TabItem { Header = "Вики", Content = new CrudView<WikiPlaceDto, CreateWikiPlaceDto>("api/wiki-places") });
+        tabs.Items.Add(new TabItem { Header = "Вики", Content = new CrudView<WikiPlaceDto, CreateWikiPlaceDto>("api/wiki-places"), ToolTip = "Вики" });
 
-        tabs.Items.Add(new TabItem { Header = "Настройки", Content = new SettingsView() });
+        tabs.Items.Add(new TabItem { Header = "Настройки", Content = new SettingsView() , ToolTip = "Настройки" });
 
         var passwordButton = new Button { Content = "Сменить пароль" };
         passwordButton.Click += async (_, _) =>

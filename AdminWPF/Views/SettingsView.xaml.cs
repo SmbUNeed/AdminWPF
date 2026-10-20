@@ -48,7 +48,10 @@ namespace AdminWPF.Views
 
         static void AddField(StackPanel panel, string label, Control box)
         {
-            panel.Children.Add(new TextBlock { Text = label, Margin = new Thickness(0, 8, 0, 2) });
+            var tb = new TextBlock { Text = label, Margin = new Thickness(0, 8, 0, 2) };
+            tb.SetResourceReference(TextBlock.ForegroundProperty, "AccentBrush");
+
+            panel.Children.Add(tb);
             panel.Children.Add(box);
         }
 
