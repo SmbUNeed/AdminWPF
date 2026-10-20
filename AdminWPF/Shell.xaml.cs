@@ -13,6 +13,11 @@ namespace AdminWPF;
 
 public partial class Shell : Window
 {
+    protected override void OnSourceInitialized(EventArgs e)
+    {
+        base.OnSourceInitialized(e);
+        TitleBar.Apply(this);
+    }
     public Shell()
     {
         InitializeComponent();
@@ -23,4 +28,5 @@ public partial class Shell : Window
     {
         MainFrame.Navigate(new Auth());
     }
+    private void ThemeButton_Click(object sender, RoutedEventArgs e) => ThemeManager.Toggle();
 }

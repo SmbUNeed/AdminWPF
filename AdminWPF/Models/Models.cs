@@ -23,11 +23,34 @@ public class CreatePriceRuleDto { public string Label { get; set; } = ""; public
 
 public record WikiPlaceDto(int Id, string Name, string Description, string PhotoPath, string Type, int? NearbyPlaceId);
 public class CreateWikiPlaceDto { public string Name { get; set; } = ""; public string Description { get; set; } = ""; public string? PhotoPath { get; set; } public string Type { get; set; } = ""; public int? NearbyPlaceId { get; set; } }
-
-public record SiteSettingsDto(int Id, string HeaderDescription, int MinBookingDaysAhead, int MaxBookingRangeDays, double DefaultHourOverpayment);
-
 public record ApartmentDto(int Id, string AdminTag, string Title, string Address, string Description, int Guests, double GuestOverpayment, double PricePerNight, int RoomsCount, double Area, bool IsActive, bool IsDeleted, string? MainImage, List<AmenityDto> Amenities, List<RuleDto> Rules, List<NearbyPlaceDto> Nearby);
 public record UpdateApartmentDto(int Id, string AdminTag, string Title, string Address, string Description, int Guests, double GuestOverpayment, double PricePerNight, int RoomsCount, double Area, bool IsActive, bool IsDeleted, string? MainImage);
 public record ApartmentSummaryAdminDto(int Id, string Title, string AdminTag, string? MainImage, double PricePerNight, bool IsDeleted, bool IsActive);
 
 public record SetIdsDto(List<int> Ids);
+
+public class SiteSettingsDto
+{
+    public int Id { get; set; }
+    public string HeaderDescription { get; set; }
+
+    public int MinBookingDaysAhead { get; set; }
+
+    public int MaxBookingRangeDays { get; set; }
+
+    public double DefaultHourOverpayment { get; set; }
+}
+
+public record AdminBookingDto(int Id, int ApartmentId, string ApartmentTitle, int ClientId, string ClientTag, string ClientName, string ClientPhone, string StartDate, string EndDate, double TotalPrice, string Status, string CreatedAt, int Nights, string Source, int Guests);
+
+public record ExternalBookingDto(int Id, int ApartmentId, string ApartmentTitle, int? ClientId, string? ClientName, string Source, string StartDate, string EndDate);
+
+public class CreateBookingDto
+{
+    public int ApartmentId { get; set; }
+    public int ClientId { get; set; }
+    public string StartDate { get; set; } = "";
+    public string EndDate { get; set; } = "";
+    public int Guests { get; set; } = 1;
+}
+public class NoCreateDto { }

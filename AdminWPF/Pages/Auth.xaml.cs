@@ -35,7 +35,6 @@ public partial class Auth : Page
         }
 
         ApiService.SetToken(auth.Token);
-        ApiService.CurrentEmail = EmailBox.Text;
         NavigationService?.Navigate(new MainPage());
     }
 }

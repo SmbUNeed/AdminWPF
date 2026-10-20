@@ -27,6 +27,12 @@ public partial class MainPage : Page
 
         var tabs = new TabControl();
         tabs.Items.Add(new TabItem { Header = "Квартиры", Content = new ApartmentsListView() });
+
+        var bookings = new TabControl();
+        bookings.Items.Add(new TabItem { Header = "Брони", Content = new CrudView<AdminBookingDto, CreateBookingDto>("api/bookings", "Брони") });
+        bookings.Items.Add(new TabItem { Header = "Внешние", Content = new CrudView<ExternalBookingDto, NoCreateDto>("api/admin/external-bookings", "Внешние брони") });
+        tabs.Items.Add(new TabItem { Header = "Бронирования", Content = bookings });
+
         tabs.Items.Add(new TabItem { Header = "Клиенты", Content = new CrudView<ClientDto, CreateClientDto>("api/clients") });
 
         var catalogs = new TabControl();
@@ -34,9 +40,12 @@ public partial class MainPage : Page
         catalogs.Items.Add(new TabItem { Header = "Правила", Content = new CrudView<RuleDto, CreateRuleDto>("api/apartments/rules") });
         catalogs.Items.Add(new TabItem { Header = "Рядом", Content = new CrudView<NearbyPlaceDto, CreateNearbyDto>("api/apartments/nearby-places") });
         catalogs.Items.Add(new TabItem { Header = "Цены", Content = new CrudView<PriceRuleDto, CreatePriceRuleDto>("api/admin/price-rules") });
+
         tabs.Items.Add(new TabItem { Header = "Справочники", Content = catalogs });
 
         tabs.Items.Add(new TabItem { Header = "Вики", Content = new CrudView<WikiPlaceDto, CreateWikiPlaceDto>("api/wiki-places") });
+
+        tabs.Items.Add(new TabItem { Header = "Настройки", Content = new SettingsView() });
 
         var passwordButton = new Button { Content = "Сменить пароль" };
         passwordButton.Click += async (_, _) =>
@@ -50,9 +59,17 @@ public partial class MainPage : Page
         var logoutButton = new Button { Content = "Выйти" };
         logoutButton.Click += (_, _) =>
         {
+            if (MessageBox.Show("Выйти из аккаунта?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
+                return;
+
             ApiService.ClearToken();
             NavigationService?.Navigate(new Auth());
         };
+
+        var ghost = (Style)Application.Current.FindResource("GhostButton");
+        passwordButton.Style = ghost;
+        logoutButton.Style = ghost;
+        tabs.Margin = new Thickness(16, 0, 16, 16);
 
         var topBar = new StackPanel { Orientation = Orientation.Horizontal, HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(8) };
         topBar.Children.Add(passwordButton);
